@@ -155,8 +155,8 @@ const Index = () => {
           </nav>
 
           <a href="#top" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-full bg-primary text-primary-foreground grid place-items-center">
-              <Icon name="Heart" size={18} />
+            <div className="w-9 h-9 rounded-full bg-secondary text-primary grid place-items-center">
+              <Icon name="Bird" size={20} />
             </div>
             <span className="font-display text-lg font-semibold leading-none hidden sm:block">
               Твори Добрые Дела
@@ -548,8 +548,8 @@ const Index = () => {
       <footer className="border-t border-border bg-card">
         <div className="container py-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <a href="#top" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground grid place-items-center">
-              <Icon name="Heart" size={20} />
+            <div className="w-10 h-10 rounded-full bg-secondary text-primary grid place-items-center">
+              <Icon name="Bird" size={22} />
             </div>
             <span className="font-display text-lg font-semibold">
               МГОО «Твори Добрые Дела»
