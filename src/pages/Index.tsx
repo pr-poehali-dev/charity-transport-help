@@ -39,18 +39,24 @@ const nav = [
 const transportServices = [
   {
     icon: 'Cross',
-    title: 'В медицинские учреждения',
-    text: 'Доставим на приём, обследование или процедуры точно ко времени.',
+    title: 'По Междуреченску',
+    text: 'Доставим в любую больницу, клинику или на обследование точно ко времени.',
+    price: 'от 800 ₽',
+    note: 'Подъём на этаж, сопровождение — включено',
   },
   {
     icon: 'MapPinned',
     title: 'Межгород',
-    text: 'Междуреченск, Новокузнецк, Мыски, ГРЭС и другие направления.',
+    text: 'Новокузнецк, Мыски, ГРЭС и другие направления. Возможен индивидуальный маршрут.',
+    price: 'от 2 000 ₽',
+    note: 'Стоимость по индивидуальному маршруту — по договорённости',
   },
   {
     icon: 'HeartHandshake',
     title: 'Сопровождение',
     text: 'С заботой и любовью к каждому на всём пути следования.',
+    price: 'от 500 ₽/ч',
+    note: 'Сопровождение внутри учреждения — включено',
   },
 ];
 
@@ -74,24 +80,24 @@ const equipment = [
 ];
 
 const careServices = [
-  { icon: 'UserRound', title: 'Сиделки' },
-  { icon: 'Scissors', title: 'Парикмахеры' },
-  { icon: 'Hand', title: 'Массажисты' },
-  { icon: 'Sparkles', title: 'Педикюр' },
-  { icon: 'SprayCan', title: 'Уборка квартир' },
+  { icon: 'UserRound', title: 'Сиделки', price: 'от 200 ₽/ч', priceDay: 'от 1 800 ₽/сут' },
+  { icon: 'Scissors', title: 'Парикмахеры', price: 'от 600 ₽' },
+  { icon: 'Hand', title: 'Массажисты', price: 'от 800 ₽/сеанс' },
+  { icon: 'Sparkles', title: 'Педикюр', price: 'от 700 ₽' },
+  { icon: 'SprayCan', title: 'Уборка квартир', price: 'от 1 500 ₽' },
 ];
 
 const rentItems = [
-  'Костыли',
-  'Ступенькоход',
-  'Направляющие для колясок',
-  'Противопролежневый матрас',
-  'Ванночка для мытья головы',
-  'Памперсы',
-  'Фиксаторы для конечностей',
-  'Поручни',
-  'Утка',
-  'Кислородный концентратор',
+  { name: 'Костыли', price: 'от 100 ₽/сут' },
+  { name: 'Ступенькоход', price: 'от 500 ₽/сут' },
+  { name: 'Направляющие для колясок', price: 'по договорённости' },
+  { name: 'Противопролежневый матрас', price: 'от 150 ₽/сут' },
+  { name: 'Ванночка для мытья головы', price: 'от 100 ₽/сут' },
+  { name: 'Памперсы', price: 'по договорённости' },
+  { name: 'Фиксаторы для конечностей', price: 'по договорённости' },
+  { name: 'Поручни', price: 'по договорённости' },
+  { name: 'Утка', price: 'от 50 ₽/сут' },
+  { name: 'Кислородный концентратор', price: 'от 400 ₽/сут' },
 ];
 
 const reviews = [
@@ -296,17 +302,29 @@ const Index = () => {
       <section id="services" className="container py-8 md:py-12">
         <div className="mb-7">
           <h2 className="font-display text-3xl md:text-5xl font-bold mb-2">Помощь в транспортировке</h2>
-          <p className="text-muted-foreground text-base md:text-lg">Сопровождение с заботой и любовью к каждому.</p>
+          <p className="text-muted-foreground text-base md:text-lg mb-5">Сопровождение с заботой и любовью к каждому.</p>
+          <div className="flex flex-wrap gap-2">
+            {['г. Междуреченск', 'Новокузнецк', 'Мыски', 'ГРЭС', 'Индивидуальный маршрут — по договорённости'].map((city) => (
+              <span key={city} className="inline-flex items-center gap-1.5 bg-secondary text-secondary-foreground rounded-full px-4 py-1.5 text-sm font-medium">
+                <Icon name="MapPin" size={13} className="text-primary" />
+                {city}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
           {transportServices.map((s) => (
-            <div key={s.title} className="bg-card border border-border rounded-[2rem] p-6 md:p-7 hover-lift">
+            <div key={s.title} className="bg-card border border-border rounded-[2rem] p-6 md:p-7 hover-lift flex flex-col">
               <div className="w-11 h-11 rounded-2xl bg-accent text-accent-foreground grid place-items-center mb-5">
                 <Icon name={s.icon} size={20} />
               </div>
               <h3 className="font-display text-xl md:text-2xl font-semibold mb-2">{s.title}</h3>
-              <p className="text-muted-foreground text-sm md:text-base">{s.text}</p>
+              <p className="text-muted-foreground text-sm md:text-base mb-4 flex-1">{s.text}</p>
+              <div className="border-t border-border pt-4 flex flex-col gap-1">
+                <span className="font-display text-2xl font-bold text-primary">{s.price}</span>
+                <span className="text-xs text-muted-foreground">{s.note}</span>
+              </div>
             </div>
           ))}
         </div>
@@ -358,14 +376,20 @@ const Index = () => {
           <div className="bg-card border border-border rounded-[2rem] p-7 md:p-10">
             <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">Помощь в повседневных делах и уходе</h2>
             <p className="text-muted-foreground mb-6 text-sm md:text-base">Рядом, когда это нужно.</p>
-            <div className="flex flex-wrap gap-3 mb-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-7">
               {careServices.map((c) => (
                 <div
                   key={c.title}
-                  className="inline-flex items-center gap-2 bg-secondary rounded-full px-4 py-2.5 hover-lift"
+                  className="flex items-center justify-between bg-secondary rounded-2xl px-4 py-3 hover-lift"
                 >
-                  <Icon name={c.icon} size={17} className="text-primary" />
-                  <span className="font-medium text-sm">{c.title}</span>
+                  <div className="flex items-center gap-2">
+                    <Icon name={c.icon} size={17} className="text-primary" />
+                    <span className="font-medium text-sm">{c.title}</span>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-semibold text-primary">{c.price}</p>
+                    {c.priceDay && <p className="text-xs text-muted-foreground">{c.priceDay}</p>}
+                  </div>
                 </div>
               ))}
             </div>
@@ -375,15 +399,18 @@ const Index = () => {
           <div className="bg-primary text-white rounded-[2rem] p-7 md:p-10">
             <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">Средства для реабилитации</h2>
             <p className="opacity-85 mb-6 text-sm md:text-base">Аренда оборудования на любой срок.</p>
-            <div className="flex flex-wrap gap-2 mb-7">
+            <div className="grid grid-cols-1 gap-2 mb-7">
               {rentItems.map((r) => (
-                <span
-                  key={r}
-                  className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3.5 py-2 text-sm"
+                <div
+                  key={r.name}
+                  className="flex items-center justify-between bg-white/10 rounded-2xl px-4 py-2.5"
                 >
-                  <Icon name="Check" size={13} />
-                  {r}
-                </span>
+                  <div className="flex items-center gap-2">
+                    <Icon name="Check" size={13} />
+                    <span className="text-sm">{r.name}</span>
+                  </div>
+                  <span className="text-sm font-semibold opacity-90">{r.price}</span>
+                </div>
               ))}
             </div>
             <a href="#request">
@@ -510,10 +537,28 @@ const Index = () => {
                   <Label className="mb-2 block text-sm font-medium">Адрес подачи машины</Label>
                   <Input className="rounded-2xl h-12" placeholder="Откуда забрать" />
                 </div>
-                <div className="md:col-span-2">
+                <div>
                   <Label className="mb-2 block text-sm font-medium">Конечный адрес</Label>
                   <Input className="rounded-2xl h-12" placeholder="Куда доставить" />
                 </div>
+                <div>
+                  <Label className="mb-2 block text-sm font-medium">Вес пациента (кг)</Label>
+                  <Input className="rounded-2xl h-12" type="number" placeholder="Например: 75" />
+                </div>
+                {serviceType === 'transport' && (
+                  <div>
+                    <Label className="mb-2 block text-sm font-medium">Номер палаты / кабинета</Label>
+                    <Input className="rounded-2xl h-12" placeholder="Например: Палата 12, 3 этаж" />
+                  </div>
+                )}
+                {serviceType === 'intercity' && (
+                  <div className="md:col-span-2 bg-secondary rounded-2xl px-5 py-4 flex items-start gap-3">
+                    <Icon name="Info" size={18} className="text-primary shrink-0 mt-0.5" />
+                    <p className="text-sm text-secondary-foreground">
+                      <strong>Межгород:</strong> стоимость поездки рассчитывается индивидуально в зависимости от маршрута и расстояния. Мы свяжемся с вами и согласуем цену до выезда.
+                    </p>
+                  </div>
+                )}
               </>
             ) : (
               <div className="md:col-span-2">
