@@ -155,8 +155,12 @@ const Index = () => {
           </nav>
 
           <a href="#top" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-full bg-secondary text-primary grid place-items-center">
-              <Icon name="Bird" size={20} />
+            <div className="w-10 h-10 rounded-full bg-white border border-border overflow-hidden flex items-center justify-center">
+              <img
+                src="https://cdn.poehali.dev/projects/65d26ed8-0279-4bdb-bbbf-1047dfc913f3/files/07d14520-7031-4397-a8b1-eb9ad7e0c6bb.jpg"
+                alt="Логотип голубь"
+                className="w-full h-full object-contain scale-110"
+              />
             </div>
             <span className="font-display text-lg font-semibold leading-none hidden sm:block">
               Твори Добрые Дела
@@ -548,8 +552,12 @@ const Index = () => {
       <footer className="border-t border-border bg-card">
         <div className="container py-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <a href="#top" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-secondary text-primary grid place-items-center">
-              <Icon name="Bird" size={22} />
+            <div className="w-11 h-11 rounded-full bg-white border border-border overflow-hidden flex items-center justify-center">
+              <img
+                src="https://cdn.poehali.dev/projects/65d26ed8-0279-4bdb-bbbf-1047dfc913f3/files/07d14520-7031-4397-a8b1-eb9ad7e0c6bb.jpg"
+                alt="Логотип голубь"
+                className="w-full h-full object-contain scale-110"
+              />
             </div>
             <span className="font-display text-lg font-semibold">
               МГОО «Твори Добрые Дела»
