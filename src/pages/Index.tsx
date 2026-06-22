@@ -371,56 +371,62 @@ const Index = () => {
       </section>
 
       {/* ───── CARE SERVICES ───── */}
-      <section className="container py-8 md:py-12">
-        <div className="grid lg:grid-cols-2 gap-4">
-          <div className="bg-card border border-border rounded-[2rem] p-7 md:p-10">
-            <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">Помощь в повседневных делах и уходе</h2>
-            <p className="text-muted-foreground mb-6 text-sm md:text-base">Рядом, когда это нужно.</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-7">
-              {careServices.map((c) => (
-                <div
-                  key={c.title}
-                  className="flex items-center justify-between bg-secondary rounded-2xl px-4 py-3 hover-lift"
-                >
-                  <div className="flex items-center gap-2">
-                    <Icon name={c.icon} size={17} className="text-primary" />
-                    <span className="font-medium text-sm">{c.title}</span>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-semibold text-primary">{c.price}</p>
-                    {c.priceDay && <p className="text-xs text-muted-foreground">{c.priceDay}</p>}
-                  </div>
-                </div>
-              ))}
+      <section className="container py-8 md:py-12 space-y-5">
+
+        {/* Уход */}
+        <div className="bg-card border border-border rounded-[2rem] p-7 md:p-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+            <div>
+              <h2 className="font-display text-2xl md:text-4xl font-bold mb-1">Помощь в повседневных делах</h2>
+              <p className="text-muted-foreground text-sm md:text-base">Рядом, когда это нужно.</p>
             </div>
             <RequestBtn label="Выбрать услугу" />
           </div>
-
-          <div className="bg-primary text-white rounded-[2rem] p-7 md:p-10">
-            <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">Средства для реабилитации</h2>
-            <p className="opacity-85 mb-6 text-sm md:text-base">Аренда оборудования на любой срок.</p>
-            <div className="grid grid-cols-1 gap-2 mb-7">
-              {rentItems.map((r) => (
-                <div
-                  key={r.name}
-                  className="flex items-center justify-between bg-white/10 rounded-2xl px-4 py-2.5"
-                >
-                  <div className="flex items-center gap-2">
-                    <Icon name="Check" size={13} />
-                    <span className="text-sm">{r.name}</span>
+          <div className="divide-y divide-border">
+            {careServices.map((c) => (
+              <div key={c.title} className="flex items-center justify-between py-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-secondary grid place-items-center shrink-0">
+                    <Icon name={c.icon} size={16} className="text-primary" />
                   </div>
-                  <span className="text-sm font-semibold opacity-90">{r.price}</span>
+                  <span className="font-medium text-sm md:text-base">{c.title}</span>
                 </div>
-              ))}
+                <div className="text-right shrink-0 ml-4">
+                  <p className="font-semibold text-primary text-sm md:text-base">{c.price}</p>
+                  {c.priceDay && <p className="text-xs text-muted-foreground">{c.priceDay}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Аренда */}
+        <div className="bg-card border border-border rounded-[2rem] p-7 md:p-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+            <div>
+              <h2 className="font-display text-2xl md:text-4xl font-bold mb-1">Средства для реабилитации</h2>
+              <p className="text-muted-foreground text-sm md:text-base">Аренда оборудования на любой срок.</p>
             </div>
             <a href="#request">
-              <Button className="rounded-full bg-gold text-gold-fg hover:opacity-90 font-semibold gap-2">
+              <Button size="lg" className="rounded-full bg-primary text-white hover:bg-primary/90 gap-2 shrink-0">
                 <Icon name="ClipboardList" size={17} />
-                Арендовать оборудование
+                Арендовать
               </Button>
             </a>
           </div>
+          <div className="divide-y divide-border">
+            {rentItems.map((r) => (
+              <div key={r.name} className="flex items-center justify-between py-3.5">
+                <div className="flex items-center gap-3">
+                  <Icon name="CheckCircle2" size={16} className="text-primary shrink-0" />
+                  <span className="text-sm md:text-base">{r.name}</span>
+                </div>
+                <span className="font-semibold text-primary text-sm shrink-0 ml-4">{r.price}</span>
+              </div>
+            ))}
+          </div>
         </div>
+
       </section>
 
       {/* ───── REVIEWS ───── */}
