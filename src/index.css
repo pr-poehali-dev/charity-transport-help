@@ -4,35 +4,38 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 40 33% 97%;
+    --foreground: 150 18% 16%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 40 40% 99%;
+    --card-foreground: 150 18% 16%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 40 40% 99%;
+    --popover-foreground: 150 18% 16%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 158 32% 32%;
+    --primary-foreground: 40 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 36 38% 90%;
+    --secondary-foreground: 150 18% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 40 25% 92%;
+    --muted-foreground: 150 8% 42%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 28 60% 88%;
+    --accent-foreground: 18 45% 28%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 8 72% 52%;
+    --destructive-foreground: 40 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 36 24% 86%;
+    --input: 36 24% 86%;
+    --ring: 158 32% 32%;
 
-    --radius: 0.5rem;
+    --warm: 24 70% 55%;
+    --warm-foreground: 40 40% 98%;
+
+    --radius: 1.5rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -97,5 +100,65 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: "Golos Text", sans-serif;
   }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: "Cormorant", serif;
+  }
+}
+
+@layer utilities {
+  .bg-warm {
+    background-color: hsl(var(--warm));
+  }
+  .text-warm {
+    color: hsl(var(--warm));
+  }
+  .bg-grain {
+    background-image: radial-gradient(
+      hsl(var(--primary) / 0.04) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+  }
+  .hover-lift {
+    transition:
+      transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1),
+      box-shadow 0.35s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -16px hsl(var(--primary) / 0.28);
+  }
+}
+
+@keyframes float-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 hsl(var(--destructive) / 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 18px hsl(var(--destructive) / 0);
+  }
+}
+.animate-emergency {
+  animation: float-pulse 2.2s infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) both;
 }
