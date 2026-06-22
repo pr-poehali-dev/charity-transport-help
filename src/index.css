@@ -4,39 +4,41 @@
 
 @layer base {
   :root {
-    --background: 210 33% 98%;
-    --foreground: 213 30% 14%;
+    --background: 210 28% 97%;
+    --foreground: 216 28% 16%;
 
     --card: 0 0% 100%;
-    --card-foreground: 213 30% 14%;
+    --card-foreground: 216 28% 16%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 213 30% 14%;
+    --popover-foreground: 216 28% 16%;
 
-    --primary: 213 100% 41%;
+    /* Мягкий небесно-синий — доверие, спокойствие */
+    --primary: 208 82% 46%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 213 60% 94%;
-    --secondary-foreground: 213 50% 24%;
+    --secondary: 208 55% 93%;
+    --secondary-foreground: 208 45% 22%;
 
-    --muted: 213 25% 93%;
-    --muted-foreground: 213 12% 42%;
+    --muted: 210 22% 92%;
+    --muted-foreground: 210 12% 46%;
 
-    --accent: 213 70% 90%;
-    --accent-foreground: 213 70% 26%;
+    --accent: 208 60% 90%;
+    --accent-foreground: 208 60% 24%;
 
-    --destructive: 8 72% 52%;
+    --destructive: 4 75% 53%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 213 28% 88%;
-    --input: 213 28% 88%;
-    --ring: 213 100% 41%;
+    --border: 210 25% 88%;
+    --input: 210 25% 88%;
+    --ring: 208 82% 46%;
 
-    --warm: 213 100% 41%;
+    --warm: 208 82% 46%;
     --warm-foreground: 0 0% 100%;
 
-    --gold: 0 80% 55%;
-    --gold-light: 0 85% 95%;
+    /* Тёплый зелёно-бирюзовый — надежда, жизнь, забота */
+    --gold: 162 48% 44%;
+    --gold-light: 162 45% 93%;
     --gold-foreground: 0 0% 100%;
 
     --radius: 1.5rem;
@@ -139,19 +141,19 @@
   }
   .bg-grain {
     background-image: radial-gradient(
-      hsl(var(--primary) / 0.04) 1px,
+      hsl(var(--primary) / 0.03) 1px,
       transparent 1px
     );
-    background-size: 22px 22px;
+    background-size: 28px 28px;
   }
   .hover-lift {
     transition:
-      transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1),
-      box-shadow 0.35s ease;
+      transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1),
+      box-shadow 0.3s ease;
   }
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px -16px hsl(var(--primary) / 0.28);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px -14px hsl(var(--primary) / 0.2);
   }
 }
 

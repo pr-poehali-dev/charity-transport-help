@@ -233,22 +233,24 @@ const Index = () => {
       </header>
 
       {/* ───── HERO ───── */}
-      <section id="top" className="container pt-8 md:pt-14 pb-6">
-        <div className="grid lg:grid-cols-12 gap-4">
-          <div className="lg:col-span-7 bg-card rounded-[2rem] border border-border p-7 md:p-12 flex flex-col justify-center animate-rise">
-            <span className="inline-flex items-center gap-2 text-sm text-primary font-medium mb-4">
-              <Icon name="Sparkle" size={15} />
-              МГОО «Твори Добрые Дела»
+      <section id="top" className="container pt-10 md:pt-16 pb-8">
+        <div className="grid lg:grid-cols-12 gap-5">
+
+          {/* Текст */}
+          <div className="lg:col-span-7 flex flex-col justify-center animate-rise py-4 md:py-0">
+            <span className="inline-flex items-center gap-2 text-sm text-primary font-medium mb-6 bg-secondary rounded-full px-4 py-2 w-fit">
+              <Icon name="Heart" size={14} />
+              МГОО «Твори Добрые Дела» · Междуреченск
             </span>
-            <h1 className="font-display text-3xl sm:text-4xl md:text-6xl font-bold leading-[1.05] mb-4">
-              Транспортировка лежачих и малоподвижных людей
+            <h1 className="font-display text-4xl sm:text-5xl md:text-[3.75rem] font-bold leading-[1.08] mb-5 tracking-tight">
+              Забота о близких,<br className="hidden sm:block" /> когда это нужно
             </h1>
-            <p className="text-muted-foreground text-base md:text-lg max-w-xl mb-7">
-              Мы стараемся сделать всё для комфортной и полноценной жизни людей с ограниченными возможностями здоровья.
+            <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-lg leading-relaxed">
+              Транспортировка лежачих и маломобильных людей, помощь в уходе, аренда оборудования — с теплом и уважением к каждому.
             </p>
             <div className="flex flex-wrap gap-3">
               <a href={PHONE_HREF}>
-                <Button size="lg" className="bg-destructive hover:bg-destructive/90 text-white rounded-full text-base gap-2 animate-emergency">
+                <Button size="lg" className="bg-destructive hover:bg-destructive/90 text-white rounded-full text-base gap-2 animate-emergency px-6">
                   <Icon name="PhoneCall" size={18} />
                   Экстренный вызов
                 </Button>
@@ -257,44 +259,57 @@ const Index = () => {
             </div>
           </div>
 
+          {/* Фото */}
           <div
-            className="lg:col-span-5 rounded-[2rem] overflow-hidden border border-border min-h-[240px] relative animate-rise"
-            style={{ animationDelay: '.15s' }}
+            className="lg:col-span-5 rounded-[2rem] overflow-hidden border border-border min-h-[300px] md:min-h-[420px] relative animate-rise"
+            style={{ animationDelay: '.2s' }}
           >
             <img src={HERO_IMG} alt="Забота о людях" className="absolute inset-0 w-full h-full object-cover" />
-            {/* Gold badge */}
-            <div className="absolute bottom-4 left-4 bg-gold text-gold-fg rounded-2xl px-4 py-2 text-sm font-semibold flex items-center gap-2 shadow-lg">
-              <Icon name="Star" size={15} />
-              Более 10 лет заботы
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+            <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between">
+              <div className="bg-white/90 backdrop-blur-sm text-foreground rounded-2xl px-4 py-2.5 text-sm font-semibold flex items-center gap-2 shadow-md">
+                <Icon name="ShieldCheck" size={15} className="text-gold" />
+                Более 10 лет заботы
+              </div>
+              <div className="bg-white/90 backdrop-blur-sm text-foreground rounded-2xl px-4 py-2.5 text-sm font-semibold flex items-center gap-2 shadow-md">
+                <Icon name="MapPin" size={14} className="text-primary" />
+                Кузбасс
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ───── ABOUT ───── */}
-      <section id="about" className="container py-10 md:py-14">
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <div className="bg-primary text-white rounded-[2rem] p-7 md:p-10 flex flex-col justify-between hover-lift">
-            <Icon name="HandHeart" size={34} className="mb-6 opacity-90" />
+      <section id="about" className="container py-10 md:py-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+          <div className="lg:col-span-2 bg-primary text-white rounded-[2rem] p-8 md:p-10 flex flex-col justify-between hover-lift min-h-[200px]">
+            <Icon name="HandHeart" size={36} className="mb-8 opacity-80" />
             <div>
-              <h2 className="font-display text-2xl md:text-4xl font-bold mb-2">Творим добрые дела</h2>
-              <p className="opacity-90 text-sm md:text-base">С заботой и любовью к каждому.</p>
+              <h2 className="font-display text-3xl md:text-4xl font-bold mb-2 leading-tight">
+                Творим добрые дела
+              </h2>
+              <p className="opacity-80 text-sm md:text-base mt-2">
+                Социальная организация, которая помогает людям с ограниченными возможностями жить полноценно.
+              </p>
             </div>
           </div>
 
-          <div className="bg-card border border-border rounded-[2rem] p-7 md:p-10 hover-lift flex flex-col justify-center">
-            <span className="font-display text-5xl md:text-6xl font-bold text-gold">10+</span>
-            <p className="text-muted-foreground mt-2 text-sm md:text-base">
-              лет волонтёрства. Для нас творить добрые дела — это образ жизни.
+          <div className="bg-card border border-border rounded-[2rem] p-8 hover-lift flex flex-col justify-center">
+            <span className="font-display text-6xl font-bold text-primary leading-none mb-3">10+</span>
+            <p className="text-muted-foreground text-sm leading-relaxed">лет волонтёрства и помощи людям</p>
+          </div>
+
+          <div className="bg-gold-light border border-border rounded-[2rem] p-8 hover-lift flex flex-col justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gold grid place-items-center mb-4">
+              <Icon name="Users" size={20} className="text-white" />
+            </div>
+            <p className="font-semibold text-sm md:text-base leading-relaxed text-foreground">
+              Помогаем семьям, в которых есть пожилые или маломобильные близкие
             </p>
           </div>
 
-          <div className="bg-secondary border border-border rounded-[2rem] p-7 md:p-10 hover-lift flex flex-col justify-center sm:col-span-2 md:col-span-1">
-            <Icon name="Users" size={30} className="text-primary mb-4" />
-            <p className="text-secondary-foreground text-sm md:text-base">
-              Делаем всё для комфортной и полноценной жизни людей с ограниченными возможностями здоровья.
-            </p>
-          </div>
         </div>
       </section>
 
@@ -600,8 +615,8 @@ const Index = () => {
       {/* ───── DONATION ───── */}
       <section className="container py-8 md:py-12">
         <div className="bg-primary text-white rounded-[2rem] p-7 md:p-12 relative overflow-hidden">
-          {/* decorative gold circle */}
-          <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-gold opacity-20 blur-2xl pointer-events-none" />
+          <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-white opacity-5 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-72 h-36 rounded-full bg-white opacity-5 blur-3xl pointer-events-none" />
           <div className="grid md:grid-cols-2 gap-8 items-center relative z-10">
             <div>
               <span className="inline-flex items-center gap-2 text-sm font-medium bg-white/10 rounded-full px-4 py-1.5 mb-5">
