@@ -35,6 +35,10 @@
     --warm: 213 100% 41%;
     --warm-foreground: 0 0% 100%;
 
+    --gold: 38 92% 50%;
+    --gold-light: 42 95% 92%;
+    --gold-foreground: 38 60% 18%;
+
     --radius: 1.5rem;
 
     --sidebar-background: 0 0% 98%;
@@ -117,6 +121,21 @@
   }
   .text-warm {
     color: hsl(var(--warm));
+  }
+  .bg-gold {
+    background-color: hsl(var(--gold));
+  }
+  .bg-gold-light {
+    background-color: hsl(var(--gold-light));
+  }
+  .text-gold {
+    color: hsl(var(--gold));
+  }
+  .text-gold-fg {
+    color: hsl(var(--gold-foreground));
+  }
+  .border-gold {
+    border-color: hsl(var(--gold) / 0.4);
   }
   .bg-grain {
     background-image: radial-gradient(

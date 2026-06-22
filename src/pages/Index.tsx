@@ -20,7 +20,8 @@ import {
 
 const PHONE = '+7 913 079 51 21';
 const PHONE_HREF = 'tel:+79130795121';
-
+const LOGO =
+  'https://cdn.poehali.dev/projects/65d26ed8-0279-4bdb-bbbf-1047dfc913f3/files/07d14520-7031-4397-a8b1-eb9ad7e0c6bb.jpg';
 const HERO_IMG =
   'https://cdn.poehali.dev/projects/65d26ed8-0279-4bdb-bbbf-1047dfc913f3/files/facf81b6-4d40-455c-9045-b948361caffe.jpg';
 const VAN_IMG =
@@ -63,7 +64,7 @@ const equipment = [
   {
     img: VAN_IMG,
     title: 'Nissan NV200 Vanette',
-    text: 'Просторный и аккуратный автомобиль с разных ракурсов — комфорт начинается снаружи.',
+    text: 'Просторный и аккуратный автомобиль — комфорт начинается снаружи.',
   },
   {
     img: SALON_IMG,
@@ -127,22 +128,44 @@ const faqItems = [
   },
 ];
 
+const RequestBtn = ({ label = 'Оставить заявку', gold = false }) => (
+  <a href="#request">
+    <Button
+      size="lg"
+      className={
+        gold
+          ? 'rounded-full text-base gap-2 bg-gold text-gold-fg hover:opacity-90 font-semibold'
+          : 'rounded-full text-base gap-2 bg-primary text-primary-foreground hover:bg-primary/90'
+      }
+    >
+      <Icon name="ClipboardList" size={18} />
+      {label}
+    </Button>
+  </a>
+);
+
 const Index = () => {
   const [serviceType, setServiceType] = useState('transport');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background bg-grain text-foreground">
-      {/* Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">
-        <div className="container flex items-center justify-between gap-4 py-3">
+
+      {/* ───── HEADER ───── */}
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-background/85 border-b border-border">
+        <div className="container flex items-center justify-between gap-3 py-3">
+
+          {/* Экстренный вызов */}
           <a href={PHONE_HREF}>
-            <Button className="bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-full font-medium gap-2 animate-emergency">
-              <Icon name="Phone" size={16} />
-              Экстренный вызов
+            <Button className="bg-destructive hover:bg-destructive/90 text-white rounded-full font-medium gap-2 animate-emergency text-sm px-4">
+              <Icon name="Phone" size={15} />
+              <span className="hidden xs:inline">Экстренный вызов</span>
+              <span className="xs:hidden">Вызов</span>
             </Button>
           </a>
 
-          <nav className="hidden md:flex items-center gap-7 text-sm">
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-6 text-sm">
             {nav.map((n) => (
               <a
                 key={n.href}
@@ -154,259 +177,278 @@ const Index = () => {
             ))}
           </nav>
 
+          {/* Logo */}
           <a href="#top" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-white border border-border overflow-hidden flex items-center justify-center">
-              <img
-                src="https://cdn.poehali.dev/projects/65d26ed8-0279-4bdb-bbbf-1047dfc913f3/files/07d14520-7031-4397-a8b1-eb9ad7e0c6bb.jpg"
-                alt="Логотип голубь"
-                className="w-full h-full object-contain scale-110"
-              />
+            <div className="w-10 h-10 rounded-full bg-white border border-border overflow-hidden flex items-center justify-center shrink-0">
+              <img src={LOGO} alt="Логотип голубь" className="w-full h-full object-contain scale-110" />
             </div>
-            <span className="font-display text-lg font-semibold leading-none hidden sm:block">
+            <span className="font-display text-base font-semibold leading-tight hidden sm:block">
               Твори Добрые Дела
             </span>
           </a>
+
+          {/* Burger — mobile only */}
+          <button
+            className="md:hidden w-10 h-10 flex flex-col justify-center items-center gap-1.5 rounded-xl hover:bg-secondary transition-colors"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Меню"
+          >
+            <span className={`block h-0.5 w-5 bg-foreground rounded transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`block h-0.5 w-5 bg-foreground rounded transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-0.5 w-5 bg-foreground rounded transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          </button>
         </div>
+
+        {/* Mobile menu dropdown */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md animate-rise">
+            <nav className="container flex flex-col py-4 gap-1">
+              {nav.map((n) => (
+                <a
+                  key={n.href}
+                  href={n.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="py-3 px-4 rounded-2xl text-base font-medium hover:bg-secondary hover:text-primary transition-colors"
+                >
+                  {n.label}
+                </a>
+              ))}
+              <div className="pt-2 border-t border-border mt-2">
+                <a href="#request" onClick={() => setMenuOpen(false)}>
+                  <Button className="w-full rounded-2xl bg-gold text-gold-fg font-semibold gap-2 hover:opacity-90">
+                    <Icon name="ClipboardList" size={17} />
+                    Оставить заявку
+                  </Button>
+                </a>
+              </div>
+            </nav>
+          </div>
+        )}
       </header>
 
-      {/* Hero */}
-      <section id="top" className="container pt-10 md:pt-16 pb-6">
-        <div className="grid lg:grid-cols-12 gap-4 md:gap-5">
-          <div className="lg:col-span-7 bg-card rounded-[2rem] border border-border p-8 md:p-12 flex flex-col justify-center animate-rise">
-            <span className="inline-flex items-center gap-2 text-sm text-primary font-medium mb-5">
-              <Icon name="Sparkle" size={16} />
+      {/* ───── HERO ───── */}
+      <section id="top" className="container pt-8 md:pt-14 pb-6">
+        <div className="grid lg:grid-cols-12 gap-4">
+          <div className="lg:col-span-7 bg-card rounded-[2rem] border border-border p-7 md:p-12 flex flex-col justify-center animate-rise">
+            <span className="inline-flex items-center gap-2 text-sm text-primary font-medium mb-4">
+              <Icon name="Sparkle" size={15} />
               МГОО «Твори Добрые Дела»
             </span>
-            <h1 className="font-display text-4xl md:text-6xl font-bold leading-[1.05] mb-5">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-6xl font-bold leading-[1.05] mb-4">
               Транспортировка лежачих и малоподвижных людей
             </h1>
-            <p className="text-muted-foreground text-lg max-w-xl mb-8">
-              Мы стараемся сделать всё для комфортной и полноценной жизни людей с
-              ограниченными возможностями здоровья.
+            <p className="text-muted-foreground text-base md:text-lg max-w-xl mb-7">
+              Мы стараемся сделать всё для комфортной и полноценной жизни людей с ограниченными возможностями здоровья.
             </p>
             <div className="flex flex-wrap gap-3">
               <a href={PHONE_HREF}>
-                <Button
-                  size="lg"
-                  className="bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-full text-base gap-2 animate-emergency"
-                >
+                <Button size="lg" className="bg-destructive hover:bg-destructive/90 text-white rounded-full text-base gap-2 animate-emergency">
                   <Icon name="PhoneCall" size={18} />
                   Экстренный вызов
                 </Button>
               </a>
-              <a href="#request">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full text-base border-primary/30 text-primary hover:bg-secondary"
-                >
-                  Оставить заявку
-                </Button>
-              </a>
+              <RequestBtn />
             </div>
           </div>
 
-          <div className="lg:col-span-5 rounded-[2rem] overflow-hidden border border-border min-h-[280px] relative animate-rise" style={{ animationDelay: '.15s' }}>
+          <div
+            className="lg:col-span-5 rounded-[2rem] overflow-hidden border border-border min-h-[240px] relative animate-rise"
+            style={{ animationDelay: '.15s' }}
+          >
             <img src={HERO_IMG} alt="Забота о людях" className="absolute inset-0 w-full h-full object-cover" />
+            {/* Gold badge */}
+            <div className="absolute bottom-4 left-4 bg-gold text-gold-fg rounded-2xl px-4 py-2 text-sm font-semibold flex items-center gap-2 shadow-lg">
+              <Icon name="Star" size={15} />
+              Более 10 лет заботы
+            </div>
           </div>
         </div>
       </section>
 
-      {/* About */}
-      <section id="about" className="container py-12 md:py-16">
-        <div className="grid md:grid-cols-3 gap-4 md:gap-5">
-          <div className="bg-primary text-primary-foreground rounded-[2rem] p-8 md:p-10 flex flex-col justify-between hover-lift">
-            <Icon name="HandHeart" size={36} className="mb-8 opacity-90" />
+      {/* ───── ABOUT ───── */}
+      <section id="about" className="container py-10 md:py-14">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="bg-primary text-white rounded-[2rem] p-7 md:p-10 flex flex-col justify-between hover-lift">
+            <Icon name="HandHeart" size={34} className="mb-6 opacity-90" />
             <div>
-              <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">
-                Творим добрые дела
-              </h2>
-              <p className="opacity-90">С заботой и любовью к каждому.</p>
+              <h2 className="font-display text-2xl md:text-4xl font-bold mb-2">Творим добрые дела</h2>
+              <p className="opacity-90 text-sm md:text-base">С заботой и любовью к каждому.</p>
             </div>
           </div>
 
-          <div className="bg-card border border-border rounded-[2rem] p-8 md:p-10 hover-lift flex flex-col justify-center">
-            <span className="font-display text-5xl md:text-6xl font-bold text-warm">10+</span>
-            <p className="text-muted-foreground mt-2">
+          <div className="bg-card border border-border rounded-[2rem] p-7 md:p-10 hover-lift flex flex-col justify-center">
+            <span className="font-display text-5xl md:text-6xl font-bold text-gold">10+</span>
+            <p className="text-muted-foreground mt-2 text-sm md:text-base">
               лет волонтёрства. Для нас творить добрые дела — это образ жизни.
             </p>
           </div>
 
-          <div className="bg-secondary border border-border rounded-[2rem] p-8 md:p-10 hover-lift flex flex-col justify-center">
-            <Icon name="Users" size={32} className="text-primary mb-4" />
-            <p className="text-secondary-foreground">
-              Мы делаем всё для комфортной и полноценной жизни людей с
-              ограниченными возможностями здоровья.
+          <div className="bg-secondary border border-border rounded-[2rem] p-7 md:p-10 hover-lift flex flex-col justify-center sm:col-span-2 md:col-span-1">
+            <Icon name="Users" size={30} className="text-primary mb-4" />
+            <p className="text-secondary-foreground text-sm md:text-base">
+              Делаем всё для комфортной и полноценной жизни людей с ограниченными возможностями здоровья.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Transport services */}
+      {/* ───── TRANSPORT SERVICES ───── */}
       <section id="services" className="container py-8 md:py-12">
-        <div className="mb-8">
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-3">
-            Помощь в транспортировке
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Сопровождение с заботой и любовью к каждому.
-          </p>
+        <div className="mb-7">
+          <h2 className="font-display text-3xl md:text-5xl font-bold mb-2">Помощь в транспортировке</h2>
+          <p className="text-muted-foreground text-base md:text-lg">Сопровождение с заботой и любовью к каждому.</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4 md:gap-5 mb-5">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
           {transportServices.map((s) => (
-            <div
-              key={s.title}
-              className="bg-card border border-border rounded-[2rem] p-7 hover-lift"
-            >
-              <div className="w-12 h-12 rounded-2xl bg-accent text-accent-foreground grid place-items-center mb-5">
-                <Icon name={s.icon} size={22} />
+            <div key={s.title} className="bg-card border border-border rounded-[2rem] p-6 md:p-7 hover-lift">
+              <div className="w-11 h-11 rounded-2xl bg-accent text-accent-foreground grid place-items-center mb-5">
+                <Icon name={s.icon} size={20} />
               </div>
-              <h3 className="font-display text-2xl font-semibold mb-2">{s.title}</h3>
-              <p className="text-muted-foreground">{s.text}</p>
+              <h3 className="font-display text-xl md:text-2xl font-semibold mb-2">{s.title}</h3>
+              <p className="text-muted-foreground text-sm md:text-base">{s.text}</p>
             </div>
           ))}
         </div>
 
-        <div className="bg-secondary border border-border rounded-[2rem] p-7 md:p-9">
-          <p className="text-sm uppercase tracking-wider text-muted-foreground mb-5">
-            Каждая услуга включает
-          </p>
-          <div className="grid sm:grid-cols-3 gap-4">
+        <div className="bg-secondary border border-border rounded-[2rem] p-6 md:p-9 mb-5">
+          <p className="text-xs md:text-sm uppercase tracking-wider text-muted-foreground mb-4">Каждая услуга включает</p>
+          <div className="grid sm:grid-cols-3 gap-3">
             {transportIncludes.map((t) => (
               <div key={t} className="flex items-start gap-3">
-                <Icon name="CheckCircle2" size={22} className="text-primary shrink-0 mt-0.5" />
-                <span className="font-medium">{t}</span>
+                <Icon name="CheckCircle2" size={20} className="text-primary shrink-0 mt-0.5" />
+                <span className="font-medium text-sm md:text-base">{t}</span>
               </div>
             ))}
           </div>
         </div>
+
+        {/* CTA после транспорта */}
+        <div className="bg-gold-light border border-gold rounded-[2rem] p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <p className="font-display text-xl md:text-2xl font-semibold text-gold-fg mb-1">Нужна транспортировка?</p>
+            <p className="text-sm text-gold-fg/70">Оставьте заявку — перезвоним и всё организуем.</p>
+          </div>
+          <RequestBtn label="Заказать транспорт" gold />
+        </div>
       </section>
 
-      {/* Transport & equipment */}
+      {/* ───── TRANSPORT & EQUIPMENT ───── */}
       <section className="container py-8 md:py-12">
-        <h2 className="font-display text-3xl md:text-5xl font-bold mb-3">
-          Наш транспорт и оборудование
-        </h2>
-        <p className="text-muted-foreground text-lg mb-8">
-          Чисто, безопасно, удобно — для каждой поездки.
-        </p>
-        <div className="grid md:grid-cols-2 gap-4 md:gap-5">
+        <h2 className="font-display text-3xl md:text-5xl font-bold mb-2">Наш транспорт и оборудование</h2>
+        <p className="text-muted-foreground text-base md:text-lg mb-7">Чисто, безопасно, удобно — для каждой поездки.</p>
+        <div className="grid md:grid-cols-2 gap-4 mb-5">
           {equipment.map((e) => (
-            <div
-              key={e.title}
-              className="bg-card border border-border rounded-[2rem] overflow-hidden hover-lift"
-            >
-              <div className="h-60 overflow-hidden">
+            <div key={e.title} className="bg-card border border-border rounded-[2rem] overflow-hidden hover-lift">
+              <div className="h-52 md:h-64 overflow-hidden">
                 <img src={e.img} alt={e.title} className="w-full h-full object-cover" />
               </div>
-              <div className="p-7">
-                <h3 className="font-display text-2xl font-semibold mb-2">{e.title}</h3>
-                <p className="text-muted-foreground">{e.text}</p>
+              <div className="p-6 md:p-7">
+                <h3 className="font-display text-xl md:text-2xl font-semibold mb-2">{e.title}</h3>
+                <p className="text-muted-foreground text-sm md:text-base">{e.text}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Care services + Rent */}
+      {/* ───── CARE SERVICES ───── */}
       <section className="container py-8 md:py-12">
-        <div className="grid lg:grid-cols-2 gap-4 md:gap-5">
-          <div className="bg-card border border-border rounded-[2rem] p-8 md:p-10">
-            <h2 className="font-display text-3xl font-bold mb-2">
-              Помощь в повседневных делах и уходе
-            </h2>
-            <p className="text-muted-foreground mb-7">Рядом, когда это нужно.</p>
-            <div className="flex flex-wrap gap-3">
+        <div className="grid lg:grid-cols-2 gap-4">
+          <div className="bg-card border border-border rounded-[2rem] p-7 md:p-10">
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">Помощь в повседневных делах и уходе</h2>
+            <p className="text-muted-foreground mb-6 text-sm md:text-base">Рядом, когда это нужно.</p>
+            <div className="flex flex-wrap gap-3 mb-7">
               {careServices.map((c) => (
                 <div
                   key={c.title}
                   className="inline-flex items-center gap-2 bg-secondary rounded-full px-4 py-2.5 hover-lift"
                 >
-                  <Icon name={c.icon} size={18} className="text-primary" />
-                  <span className="font-medium">{c.title}</span>
+                  <Icon name={c.icon} size={17} className="text-primary" />
+                  <span className="font-medium text-sm">{c.title}</span>
                 </div>
               ))}
             </div>
+            <RequestBtn label="Выбрать услугу" />
           </div>
 
-          <div className="bg-primary text-primary-foreground rounded-[2rem] p-8 md:p-10">
-            <h2 className="font-display text-3xl font-bold mb-2">
-              Средства для реабилитации
-            </h2>
-            <p className="opacity-90 mb-7">Аренда оборудования на любой срок.</p>
-            <div className="flex flex-wrap gap-2.5">
+          <div className="bg-primary text-white rounded-[2rem] p-7 md:p-10">
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">Средства для реабилитации</h2>
+            <p className="opacity-85 mb-6 text-sm md:text-base">Аренда оборудования на любой срок.</p>
+            <div className="flex flex-wrap gap-2 mb-7">
               {rentItems.map((r) => (
                 <span
                   key={r}
-                  className="inline-flex items-center gap-2 bg-primary-foreground/10 rounded-full px-3.5 py-2 text-sm"
+                  className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3.5 py-2 text-sm"
                 >
-                  <Icon name="Check" size={14} />
+                  <Icon name="Check" size={13} />
                   {r}
                 </span>
               ))}
             </div>
+            <a href="#request">
+              <Button className="rounded-full bg-gold text-gold-fg hover:opacity-90 font-semibold gap-2">
+                <Icon name="ClipboardList" size={17} />
+                Арендовать оборудование
+              </Button>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Reviews */}
+      {/* ───── REVIEWS ───── */}
       <section id="reviews" className="container py-8 md:py-12">
-        <h2 className="font-display text-3xl md:text-5xl font-bold mb-8">
-          Что говорят о нас люди
-        </h2>
-        <div className="grid md:grid-cols-3 gap-4 md:gap-5 mb-5">
+        <h2 className="font-display text-3xl md:text-5xl font-bold mb-7">Что говорят о нас люди</h2>
+
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
           {reviews.map((r) => (
-            <div
-              key={r.name}
-              className="bg-card border border-border rounded-[2rem] p-7 hover-lift flex flex-col"
-            >
-              <div className="flex gap-1 text-warm mb-4">
+            <div key={r.name} className="bg-card border border-border rounded-[2rem] p-6 md:p-7 hover-lift flex flex-col">
+              <div className="flex gap-1 mb-4">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Icon key={i} name="Star" size={16} fallback="Star" />
+                  <Icon key={i} name="Star" size={15} className="text-gold" />
                 ))}
               </div>
-              <p className="text-foreground/90 mb-5 flex-1">«{r.text}»</p>
-              <span className="font-display text-xl font-semibold">{r.name}</span>
+              <p className="text-foreground/90 mb-5 flex-1 text-sm md:text-base">«{r.text}»</p>
+              <span className="font-display text-lg md:text-xl font-semibold">{r.name}</span>
             </div>
           ))}
         </div>
 
-        <div className="bg-accent text-accent-foreground rounded-[2rem] p-7 md:p-9 flex flex-col md:flex-row md:items-center justify-between gap-5">
+        <div className="bg-accent text-accent-foreground rounded-[2rem] p-6 md:p-9 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <div>
-            <h3 className="font-display text-2xl font-semibold mb-1">
-              Поделитесь своим отзывом
-            </h3>
-            <p className="opacity-80">Ваши слова помогают нам становиться лучше.</p>
+            <h3 className="font-display text-xl md:text-2xl font-semibold mb-1">Поделитесь своим отзывом</h3>
+            <p className="opacity-80 text-sm">Ваши слова помогают нам становиться лучше.</p>
           </div>
           <a href="#request">
-            <Button className="rounded-full bg-foreground text-background hover:bg-foreground/90 gap-2">
-              <Icon name="MessageCircleHeart" size={18} />
+            <Button className="rounded-full bg-foreground text-background hover:bg-foreground/90 gap-2 shrink-0">
+              <Icon name="MessageCircleHeart" size={17} />
               Оставить отзыв
             </Button>
           </a>
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* ───── FAQ ───── */}
       <section id="faq" className="container py-8 md:py-12">
-        <div className="grid lg:grid-cols-12 gap-4 md:gap-5">
+        <div className="grid lg:grid-cols-12 gap-4">
           <div className="lg:col-span-4">
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-3">
-              Частые вопросы
-            </h2>
-            <p className="text-muted-foreground">
-              Не нашли ответ? Позвоните нам — поможем.
-            </p>
+            <h2 className="font-display text-3xl md:text-5xl font-bold mb-3">Частые вопросы</h2>
+            <p className="text-muted-foreground mb-6 text-sm md:text-base">Не нашли ответ? Позвоните нам — поможем.</p>
+            <a href={PHONE_HREF}>
+              <Button variant="outline" className="rounded-full border-primary/40 text-primary gap-2 hover:bg-secondary">
+                <Icon name="Phone" size={16} />
+                {PHONE}
+              </Button>
+            </a>
           </div>
           <div className="lg:col-span-8 bg-card border border-border rounded-[2rem] p-3 md:p-5">
             <Accordion type="single" collapsible className="w-full">
               {faqItems.map((f, i) => (
                 <AccordionItem key={i} value={`item-${i}`} className="border-border">
-                  <AccordionTrigger className="text-left font-display text-xl hover:no-underline px-3">
+                  <AccordionTrigger className="text-left font-display text-lg md:text-xl hover:no-underline px-3">
                     {f.q}
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground px-3">
+                  <AccordionContent className="text-muted-foreground px-3 text-sm md:text-base">
                     {f.a}
                   </AccordionContent>
                 </AccordionItem>
@@ -416,19 +458,22 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Request form */}
+      {/* ───── REQUEST FORM ───── */}
       <section id="request" className="container py-8 md:py-12">
-        <div className="bg-card border border-border rounded-[2rem] p-8 md:p-12">
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-2">
-            Оставить заявку
-          </h2>
-          <p className="text-muted-foreground mb-8">
-            Заполните форму — мы свяжемся с вами и всё организуем.
-          </p>
+        <div className="bg-card border border-border rounded-[2rem] p-7 md:p-12">
+          <div className="flex items-start gap-4 mb-8">
+            <div className="w-12 h-12 rounded-2xl bg-gold-light grid place-items-center shrink-0">
+              <Icon name="ClipboardList" size={22} className="text-gold" />
+            </div>
+            <div>
+              <h2 className="font-display text-3xl md:text-5xl font-bold mb-1">Оставить заявку</h2>
+              <p className="text-muted-foreground text-sm md:text-base">Заполните форму — мы свяжемся и всё организуем.</p>
+            </div>
+          </div>
 
-          <form className="grid md:grid-cols-2 gap-5">
+          <form className="grid md:grid-cols-2 gap-4 md:gap-5">
             <div className="md:col-span-2">
-              <Label className="mb-2 block">Выбор услуги</Label>
+              <Label className="mb-2 block text-sm font-medium">Выбор услуги</Label>
               <Select value={serviceType} onValueChange={setServiceType}>
                 <SelectTrigger className="rounded-2xl h-12">
                   <SelectValue placeholder="Выберите услугу" />
@@ -447,83 +492,94 @@ const Index = () => {
             </div>
 
             <div>
-              <Label className="mb-2 block">Имя</Label>
+              <Label className="mb-2 block text-sm font-medium">Имя</Label>
               <Input className="rounded-2xl h-12" placeholder="Как к вам обращаться" />
             </div>
             <div>
-              <Label className="mb-2 block">Телефон</Label>
+              <Label className="mb-2 block text-sm font-medium">Телефон</Label>
               <Input className="rounded-2xl h-12" placeholder="+7 ___ ___ __ __" />
             </div>
             <div>
-              <Label className="mb-2 block">Желаемое время</Label>
+              <Label className="mb-2 block text-sm font-medium">Желаемое время</Label>
               <Input className="rounded-2xl h-12" type="datetime-local" />
             </div>
 
             {serviceType === 'transport' || serviceType === 'intercity' ? (
               <>
                 <div>
-                  <Label className="mb-2 block">Адрес подачи машины</Label>
+                  <Label className="mb-2 block text-sm font-medium">Адрес подачи машины</Label>
                   <Input className="rounded-2xl h-12" placeholder="Откуда забрать" />
                 </div>
                 <div className="md:col-span-2">
-                  <Label className="mb-2 block">Конечный адрес</Label>
+                  <Label className="mb-2 block text-sm font-medium">Конечный адрес</Label>
                   <Input className="rounded-2xl h-12" placeholder="Куда доставить" />
                 </div>
               </>
             ) : (
               <div className="md:col-span-2">
-                <Label className="mb-2 block">Адрес оказания услуги</Label>
+                <Label className="mb-2 block text-sm font-medium">Адрес оказания услуги</Label>
                 <Input className="rounded-2xl h-12" placeholder="Куда приехать" />
               </div>
             )}
 
             <div className="md:col-span-2">
-              <Label className="mb-2 block">Комментарий</Label>
+              <Label className="mb-2 block text-sm font-medium">Комментарий</Label>
               <Textarea className="rounded-2xl" placeholder="Дополнительные пожелания (необязательно)" rows={3} />
             </div>
 
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 flex flex-col sm:flex-row gap-3">
               <Button
                 size="lg"
-                className="w-full md:w-auto rounded-full bg-primary hover:bg-primary/90 text-primary-foreground gap-2 text-base"
+                className="rounded-full bg-primary hover:bg-primary/90 text-white gap-2 text-base sm:w-auto w-full"
               >
                 <Icon name="Send" size={18} />
                 Отправить заявку
               </Button>
+              <a href={PHONE_HREF} className="sm:w-auto w-full">
+                <Button size="lg" variant="outline" className="rounded-full border-primary/40 text-primary gap-2 w-full">
+                  <Icon name="Phone" size={18} />
+                  Позвонить напрямую
+                </Button>
+              </a>
             </div>
           </form>
         </div>
       </section>
 
-      {/* Donation */}
+      {/* ───── DONATION ───── */}
       <section className="container py-8 md:py-12">
-        <div className="bg-warm text-[hsl(var(--warm-foreground))] rounded-[2rem] p-8 md:p-12 overflow-hidden relative">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="bg-primary text-white rounded-[2rem] p-7 md:p-12 relative overflow-hidden">
+          {/* decorative gold circle */}
+          <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-gold opacity-20 blur-2xl pointer-events-none" />
+          <div className="grid md:grid-cols-2 gap-8 items-center relative z-10">
             <div>
-              <h2 className="font-display text-3xl md:text-5xl font-bold mb-3">
-                Твори добро с нами
-              </h2>
-              <p className="text-lg opacity-95 max-w-md">
-                Верим, что вместе сможем реализовать всё задуманное. Поддержать
-                наши благотворительные проекты можно добровольным пожертвованием.
+              <span className="inline-flex items-center gap-2 text-sm font-medium bg-white/10 rounded-full px-4 py-1.5 mb-5">
+                <Icon name="Heart" size={14} />
+                Поддержать нас
+              </span>
+              <h2 className="font-display text-3xl md:text-5xl font-bold mb-3">Твори добро с нами</h2>
+              <p className="opacity-90 text-sm md:text-base max-w-md">
+                Верим, что вместе сможем реализовать всё задуманное. Поддержите наши благотворительные проекты добровольным пожертвованием.
               </p>
             </div>
-            <div className="bg-background/95 text-foreground rounded-[1.5rem] p-7 space-y-4">
+            <div className="bg-white text-foreground rounded-[1.5rem] p-6 md:p-7 space-y-4">
               <div className="flex items-center gap-3">
-                <Icon name="Smartphone" size={22} className="text-primary" />
+                <div className="w-10 h-10 rounded-xl bg-gold-light grid place-items-center shrink-0">
+                  <Icon name="Smartphone" size={20} className="text-gold" />
+                </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">СБП по номеру</p>
-                  <p className="font-display text-2xl font-semibold">{PHONE}</p>
+                  <p className="text-xs text-muted-foreground mb-0.5">СБП по номеру</p>
+                  <p className="font-display text-xl md:text-2xl font-semibold">{PHONE}</p>
                 </div>
               </div>
               <div className="h-px bg-border" />
               <div className="flex items-center gap-3">
-                <Icon name="CreditCard" size={22} className="text-primary" />
+                <div className="w-10 h-10 rounded-xl bg-gold-light grid place-items-center shrink-0">
+                  <Icon name="CreditCard" size={20} className="text-gold" />
+                </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Номер карты</p>
-                  <p className="font-display text-2xl font-semibold tracking-wide">
-                    4817 7601 1998 3587
-                  </p>
+                  <p className="text-xs text-muted-foreground mb-0.5">Номер карты</p>
+                  <p className="font-display text-xl md:text-2xl font-semibold tracking-wide">4817 7601 1998 3587</p>
                 </div>
               </div>
             </div>
@@ -531,51 +587,45 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Funeral — delicate */}
+      {/* ───── FUNERAL (delicate) ───── */}
       <section className="container pb-12">
-        <div className="bg-muted/60 border border-border rounded-[2rem] p-7 md:p-9 flex items-start gap-4">
-          <Icon name="Flower2" size={24} className="text-muted-foreground shrink-0 mt-1" />
+        <div className="bg-muted/60 border border-border rounded-[2rem] p-6 md:p-9 flex items-start gap-4">
+          <Icon name="Flower2" size={22} className="text-muted-foreground shrink-0 mt-1" />
           <div>
-            <h3 className="font-display text-xl font-semibold mb-1">
-              Организация похорон
-            </h3>
-            <p className="text-muted-foreground">
-              В трудную минуту мы также готовы бережно взять на себя организацию
-              похорон и помочь со всеми необходимыми хлопотами. Звоните — поддержим
-              с уважением и деликатностью.
+            <h3 className="font-display text-xl font-semibold mb-1">Организация похорон</h3>
+            <p className="text-muted-foreground text-sm md:text-base">
+              В трудную минуту мы также готовы бережно взять на себя организацию похорон и помочь со всеми необходимыми хлопотами. Позвоните — поддержим с уважением и деликатностью.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* ───── FOOTER ───── */}
       <footer className="border-t border-border bg-card">
-        <div className="container py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="container py-8 md:py-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <a href="#top" className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-full bg-white border border-border overflow-hidden flex items-center justify-center">
-              <img
-                src="https://cdn.poehali.dev/projects/65d26ed8-0279-4bdb-bbbf-1047dfc913f3/files/07d14520-7031-4397-a8b1-eb9ad7e0c6bb.jpg"
-                alt="Логотип голубь"
-                className="w-full h-full object-contain scale-110"
-              />
+            <div className="w-10 h-10 rounded-full bg-white border border-border overflow-hidden flex items-center justify-center shrink-0">
+              <img src={LOGO} alt="Логотип голубь" className="w-full h-full object-contain scale-110" />
             </div>
-            <span className="font-display text-lg font-semibold">
-              МГОО «Твори Добрые Дела»
-            </span>
+            <span className="font-display text-base md:text-lg font-semibold">МГОО «Твори Добрые Дела»</span>
           </a>
 
-          <a href={PHONE_HREF} className="font-display text-2xl font-semibold hover:text-primary transition-colors">
+          <a href={PHONE_HREF} className="font-display text-xl md:text-2xl font-semibold hover:text-primary transition-colors">
             {PHONE}
           </a>
 
           <div className="flex items-center gap-3">
-            {['Send', 'MessageCircle', 'Phone'].map((ic) => (
+            {[
+              { icon: 'Send', href: '#' },
+              { icon: 'MessageCircle', href: '#' },
+              { icon: 'Phone', href: PHONE_HREF },
+            ].map(({ icon, href }) => (
               <a
-                key={ic}
-                href={ic === 'Phone' ? PHONE_HREF : '#'}
-                className="w-10 h-10 rounded-full bg-secondary grid place-items-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                key={icon}
+                href={href}
+                className="w-10 h-10 rounded-full bg-secondary grid place-items-center text-primary hover:bg-primary hover:text-white transition-colors"
               >
-                <Icon name={ic} size={18} />
+                <Icon name={icon} size={18} />
               </a>
             ))}
           </div>
